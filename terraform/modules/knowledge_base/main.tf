@@ -38,6 +38,10 @@ resource "aws_bedrockagent_knowledge_base" "this" {
       }
     }
   }
+
+  depends_on = [
+    aws_opensearchserverless_access_policy.data
+  ]
 }
 
 data "aws_iam_policy_document" "bedrock_assume_role" {
@@ -112,7 +116,7 @@ data "aws_iam_policy_document" "s3" {
       test     = "StringEquals"
       variable = "aws:ResourceAccount"
       values = [
-        "325848924379"
+        local.account_id
       ]
     }
   }
@@ -128,7 +132,7 @@ data "aws_iam_policy_document" "s3" {
       test     = "StringEquals"
       variable = "aws:ResourceAccount"
       values = [
-        "325848924379"
+        local.account_id
       ]
     }
   }
